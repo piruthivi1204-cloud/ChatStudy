@@ -72,9 +72,57 @@ User authentication mechanisms are essential to ensure secure and authorized acc
 Client-server chat applications are versatile tools that facilitate real-time communication between users over a network. They incorporate various components, including server-side and client-side elements, and must consider factors such as security, scalability, and concurrency. As technology continues to advance, client-server chat applications remain integral for collaborative communication in various domains.
 
 Client-server chat applications are foundational to real-time communication over networks. They incorporate principles of socket programming, communication protocols, and security mechanisms to provide a seamless user experience. Understanding the basics of client-server chat applications is essential for developers involved in networked application development, as they form the backbone of various collaborative communication systems. As technology evolves, chat applications continue to adapt, incorporating new features and technologies to enhance user interaction and connectivity.
-
+## program:
+## Client:
+```python
+import socket
+s = socket.socket()
+host = input(str('Enter hostname or host IP : '))
+port = 8080
+s.connect((host, port)) 
+print('Connected to chat server') 
+while 1:
+  incoming_message = s.recv(1024)
+  incoming_message = incoming_message.decode()
+  print(' Server : ', incoming_message)
+  print()
+  message = input(str('>> ')) 
+  message = message.encode() 
+  s.send(message)
+  print('Sent')
+  print()
+```
+## Server:
+```python
+import socket
+s = socket.socket()
+host = socket.gethostname()
+print(' Server will start on host : ', host) 
+port = 8080
+s.bind((host, port))
+print()
+print('Waiting for connection') 
+print()
+s.listen(1)
+conn, addr = s.accept()
+print(addr, ' Has connected to the server') 
+print()
+while 1:
+  message = input(str('>> ')) 
+  message = message.encode() 
+  conn.send(message) 
+  print('Sent')
+  print()
+  incoming_message = conn.recv(1024) 
+  incoming_message = incoming_message.decode()
+  print(' Client : ', incoming_message) 
+  print()
+```
 
 ## Result:
+<img width="1838" height="438" alt="image" src="https://github.com/user-attachments/assets/eba1d740-d70c-4a89-a635-b685af35a3c3" />
+<img width="1705" height="432" alt="image" src="https://github.com/user-attachments/assets/5f08f1e4-40bb-4dff-8bb9-d89cca91dd0e" />
+
 
 Thus the study on Client Server Chat Applications has been performed
 
